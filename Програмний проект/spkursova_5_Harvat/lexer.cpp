@@ -170,6 +170,78 @@ unsigned int GetTokens(FILE* F, Token TokenTable[], FILE* errFile)
 				}
 			}
 
+			else if (!strcmp(buf, "Mod"))
+			{
+				char next_buf[16];
+				int next_j = 0;
+
+				while (ch == ' ' || ch == '\t')
+				{
+					ch = getc(F);
+				}
+
+				while ((ch >= '0' && ch <= '9') && next_j < 15)
+				{
+					next_buf[next_j++] = ch;
+					ch = getc(F);
+				}
+				next_buf[next_j] = '\0';
+
+				if (!strcmp(next_buf, "1"))
+				{
+					temp_type = Mod2;
+					strcpy_s(TempToken.name, buf);
+					TempToken.type = temp_type;
+					TempToken.value = 0;
+					TempToken.line = line;
+					TokenTable[NumberOfTokens++] = TempToken;
+
+					temp_type = Number;
+					strcpy_s(TempToken.name, next_buf);
+					TempToken.type = temp_type;
+					TempToken.value = 0;
+					TempToken.line = line;
+					TokenTable[NumberOfTokens++] = TempToken;
+
+					state = Start;
+					break;
+				}
+				else if (!strcmp(next_buf, "2"))
+				{
+					temp_type = Mod1;
+					strcpy_s(TempToken.name, buf);
+					TempToken.type = temp_type;
+					TempToken.value = 0;
+					TempToken.line = line;
+					TokenTable[NumberOfTokens++] = TempToken;
+
+					temp_type = Number;
+					strcpy_s(TempToken.name, next_buf);
+					TempToken.type = temp_type;
+					TempToken.value = 0;
+					TempToken.line = line;
+					TokenTable[NumberOfTokens++] = TempToken;
+
+					state = Start;
+					break;
+				}
+				else
+				{
+					temp_type = Mod;
+					strcpy_s(TempToken.name, buf);
+					TempToken.type = temp_type;
+					TempToken.value = 0;
+					TempToken.line = line;
+					state = Finish;
+
+					for (int k = next_j - 1; k >= 0; k--)
+					{
+						ungetc(next_buf[k], F);
+					}
+					break;
+				}
+			}
+
 			else if (!strcmp(buf, "Start"))		temp_type = StartProgram;
 			else if (!strcmp(buf, "Variable"))		temp_type = Variable;
 			else if (!strcmp(buf, "Integer_2"))	temp_type = Type;
@@ -600,6 +672,12 @@ void PrintTokens(Token TokenTable[], unsigned int TokensNum)
 		case Mod:
 			strcpy_s(type_tokens, "Mod");
 			break;
+		case Mod1:
+			strcpy_s(type_tokens, "Mod_odd");
+			break;
+		case Mod2:
+			strcpy_s(type_tokens, "Mod_pair");
+			break;
 		case Equality:
 			strcpy_s(type_tokens, "Equality");
 			break;
@@ -754,6 +832,12 @@ void PrintTokensToFile(char* FileName, Token TokenTable[], unsigned int TokensNu
 			break;
 		case Mod:
 			strcpy_s(type_tokens, "Mod");
+			break;
+		case Mod1:
+			strcpy_s(type_tokens, "Mod_odd");
+			break;
+		case Mod2:
+			strcpy_s(type_tokens, "Mod_pair");
 			break;
 		case Equality:
 			strcpy_s(type_tokens, "Equality");

@@ -150,7 +150,6 @@ void assignment(FILE* errFile)
     match(Identifier, errFile);
     match(Assign, errFile);
     arithmetic_expression(errFile);
-    match(Semicolon, errFile);
 }
 
 void arithmetic_expression(FILE* errFile)
@@ -202,13 +201,13 @@ void input(FILE* errFile)
 {
     match(Input, errFile);
     match(Identifier, errFile);
-    match(Semicolon, errFile);
+
 }
 
 void output(FILE* errFile)
 {
     match(Output, errFile);
-    if (TokenTable[pos].type == Minus)
+    if (TokenTable[pos].type == Sub)
     {
         pos++;
         if (TokenTable[pos].type == Number)
@@ -220,34 +219,34 @@ void output(FILE* errFile)
     {
         arithmetic_expression(errFile);
     }
-    match(Semicolon, errFile);
+  
 }
 
 void conditional(FILE* errFile)
 {
     match(If, errFile);
-    logical_expression(errFile); 
-    statement(errFile);
+    logical_expression(errFile);
+    while (TokenTable[pos].type != Semicolon)
+    {
+        statement(errFile);
+    } 
+    pos += 1;
     if (TokenTable[pos].type == Else)
     {
+        match(Else, errFile);
+        do
+        {
+            statement(errFile);
+        } while (TokenTable[pos].type != Semicolon);
         pos++;
-        statement(errFile);
     }
 }
 
 void goto_statement(FILE* errFile)
 {
     match(Goto, errFile);
-    if (TokenTable[pos].type == Identifier)
-    {
-        pos++;
-        match(Semicolon, errFile);
-    }
-    else
-    {
-        printf("Error: Expected a label after 'goto' at line %d.\n", TokenTable[pos].line);
-        exit(1);
-    }
+    match(Identifier, errFile);
+    
 }
 
 
@@ -267,7 +266,11 @@ void for_to_do(FILE* errFile)
     match(To, errFile);
     arithmetic_expression(errFile);
     match(Do, errFile);
-    statement(errFile);
+    do
+    {
+        statement(errFile);
+    } while (TokenTable[pos].type != Semicolon);
+    match(Semicolon, errFile);
 }
 
 void for_downto_do(FILE* errFile)
@@ -279,21 +282,26 @@ void for_downto_do(FILE* errFile)
     match(DownTo, errFile);
     arithmetic_expression(errFile);
     match(Do, errFile);
-    statement(errFile);
+    do
+    {
+        statement(errFile);
+    } while (TokenTable[pos].type != Semicolon);
+    match(Semicolon, errFile);
+
 }
 
 void while_statement(FILE* errFile)
 {
-    match(While, errFile); 
-    logical_expression(errFile); 
+    match(While, errFile);
+    logical_expression(errFile);
 
-    while (1) 
+    while (1)
     {
         if (TokenTable[pos].type == End)
         {
-            pos++; 
-            match(While, errFile); 
-            break; 
+            pos++;
+            match(While, errFile);
+            break;
         }
         else
         {
@@ -309,10 +317,32 @@ void while_statement(FILE* errFile)
 
 void repeat_until(FILE* errFile)
 {
+    
     match(Repeat, errFile);
-    statement(errFile);
+    do
+    {
+        statement(errFile);
+    } while (TokenTable[pos].type != Until);
     match(Until, errFile);
     logical_expression(errFile);
+
+
+   /* while (1) {
+        if (TokenTable[pos].type == Until)
+        {
+            match(Until, errFile);
+            break;
+        }
+        if (TokenTable[pos+1].type == Repeat)
+        {
+            pos++;
+            statement(errFile);
+        }
+        else {
+            statement(errFile);
+        }
+    }
+    logical_expression(errFile);*/
 }
 
 void logical_expression(FILE* errFile)
@@ -355,14 +385,15 @@ void comparison(FILE* errFile)
         {
             arithmetic_expression(errFile);
             if (TokenTable[pos].type == Greate || TokenTable[pos].type == Less ||
-                TokenTable[pos].type == Equality || TokenTable[pos].type == NotEquality)
+                TokenTable[pos].type == Equality || TokenTable[pos].type == NotEquality || 
+                TokenTable[pos].type == Mod1 || TokenTable[pos].type == Mod2)
             {
                 pos++;
                 arithmetic_expression(errFile);
             }
             else
             {
-                fprintf(errFile, "\nSyntax error in line %d : A comparison operation is expected.\n", TokenTable[pos].line);
+                printf("\nSyntax error: A comparison operation is expected.\n");
                 exit(12);
             }
         }
@@ -486,6 +517,8 @@ std::string TokenTypeToString(TypeOfTokens type)
     case Mul: return "Mul";
     case Div: return "Div";
     case Mod: return "Mod";
+    case Mod1: return "Mod";
+    case Mod2: return "Mod";
     case Equality: return "Equality";
     case NotEquality: return "NotEquality";
     case Greate: return "Greate";

@@ -178,11 +178,11 @@ ASTNode* statement()
     case While: return while_statement();
     case Exit:
         match(Exit);
-        match(While); 
+        match(While);
         return createNode(exit_while_node, "exit-while", NULL, NULL);
     case Continue:
         match(Continue);
-        match(While); 
+        match(While);
         return createNode(continue_while_node, "continue-while", NULL, NULL);
     case Repeat: return repeat_until();
     default: return assignment();
@@ -197,8 +197,8 @@ ASTNode* assignment()
     match(Identifier);
     match(Assign);
     ASTNode* expr = arithmetic_expression();
-    match(Semicolon);
-    return createNode(assign_node, "<==", id, expr);
+  
+    return createNode(assign_node, ":=", id, expr);
 }
 
 // <арифметичний вираз> = <доданок> { ('+' | '-') <доданок> }
@@ -274,7 +274,7 @@ ASTNode* input()
     match(Input);
     ASTNode* id = createNode(id_node, TokenTable[pos].name, NULL, NULL);
     match(Identifier);
-    match(Semicolon);
+    //match(Semicolon);
     return createNode(input_node, "input", id, NULL);
 }
 
@@ -285,7 +285,7 @@ ASTNode* output()
 
     ASTNode* expr = NULL;
     // Check for a negative number
-    if (TokenTable[pos].type == Minus && TokenTable[pos + 1].type == Number)
+    if (TokenTable[pos].type == Sub && TokenTable[pos + 1].type == Number)
     {
         pos++; // Skip the 'Sub' token
         expr = createNode(sub_node, "-", createNode(num_node, "0", NULL, NULL),
@@ -297,7 +297,7 @@ ASTNode* output()
         // Parse the arithmetic expression
         expr = arithmetic_expression();
     }
-    match(Semicolon); // Ensure the statement ends with a semicolon
+    //match(Semicolon); // Ensure the statement ends with a semicolon
 
     // Create the output node with the parsed expression as its left child
     return createNode(output_node, "output", expr, NULL);
@@ -306,19 +306,26 @@ ASTNode* output()
 
 
 
-// <умовний оператор> = 'if' <логічний вираз> <оператор> [ 'else' <оператор> ]
+// <умовний оператор> = 'if' <логічний вираз> 'then' <оператор> [ 'else' <оператор> ]
 ASTNode* conditional()
 {
     match(If);
     ASTNode* condition = logical_expression();
-    ASTNode* ifBranch = statement();
+    ASTNode* ifBranch = NULL;
+    if (TokenTable[pos].type != Semicolon)
+    {
+        ifBranch = statement();
+    }
+    match(Semicolon);
     ASTNode* elseBranch = NULL;
     if (TokenTable[pos].type == Else)
     {
         match(Else);
         elseBranch = statement();
+        match(Semicolon);
     }
-    return createNode(if_node, "if", condition, createNode(statement_node, "branches", ifBranch, elseBranch));
+  
+    return createNode(if_node, "if", condition, createNode(then_node, "then", ifBranch, elseBranch));
 }
 
 ASTNode* goto_statement()
@@ -328,7 +335,7 @@ ASTNode* goto_statement()
     {
         ASTNode* label = createNode(label_node, TokenTable[pos].name, NULL, NULL);
         match(Identifier);
-        match(Semicolon);
+        //match(Semicolon);
         return createNode(goto_node, "goto", label, NULL);
     }
     else
@@ -361,11 +368,17 @@ ASTNode* for_to_do()
     match(To);
     ASTNode* end = arithmetic_expression();
     match(Do);
-    ASTNode* body = statement();
+    ASTNode* body = NULL;
+    while (TokenTable[pos].type != Semicolon) // Обробляємо всі оператори до закінчення циклу
+    {
+        ASTNode* stmt = statement();
+        body = createNode(statement_node, "statement", body, stmt);
+    }
+    pos++;
     // Повертаємо вузол циклу for-to
     return createNode(for_to_node, "for-to",
-        createNode(assign_node, "<==", var, start), 
-        createNode(statement_node, "body", end, body)); 
+        createNode(assign_node, "<==", var, start),
+        createNode(statement_node, "body", end, body));
 }
 
 
@@ -389,7 +402,13 @@ ASTNode* for_downto_do()
     match(DownTo);
     ASTNode* end = arithmetic_expression();
     match(Do);
-    ASTNode* body = statement();
+    ASTNode* body = NULL;
+    while (TokenTable[pos].type != Semicolon) // Обробляємо всі оператори до закінчення циклу
+    {
+        ASTNode* stmt = statement();
+        body = createNode(statement_node, "statement", body, stmt);
+    }
+    pos++;
     // Повертаємо вузол циклу for-to
     return createNode(for_downto_node, "for-downto",
         createNode(assign_node, "<==", var, start),
@@ -422,7 +441,6 @@ ASTNode* while_statement()
     return createNode(while_node, "while", condition, body);
 }
 
-
 // Updated variable validation logic
 ASTNode* validate_identifier()
 {
@@ -450,15 +468,34 @@ ASTNode* validate_identifier()
 }
 
 
-ASTNode* repeat_until()
-{
-    match(Repeat);
-    ASTNode* body = NULL;
-    ASTNode* stmt = statement();
-    body = createNode(statement_node, "body", body, stmt);
-    //pos++;
-    match(Until);
-    ASTNode* condition = logical_expression();
+ASTNode* repeat_until() {
+    match(Repeat); // Підтверджуємо, що це початок циклу Repeat
+    ASTNode* body = NULL; // Кореневий вузол для тіла циклу
+    ASTNode* currentStatement = NULL;
+
+    // Обробка операторів у тілі циклу
+    while (TokenTable[pos].type != Until) {
+        if (TokenTable[pos].type == Repeat) {
+            // Рекурсивно обробляємо вкладений цикл
+            currentStatement = repeat_until();
+        }
+        else {
+            // Генеруємо окремий оператор
+            currentStatement = statement();
+        }
+
+        if (body == NULL) {
+            // Якщо це перший оператор, він стає кореневим вузлом
+            body = currentStatement;
+        }
+        else {
+            // Додаємо оператор у дерево як послідовність
+            body = createNode(sequence_node, "sequence", body, currentStatement);
+        }
+    }
+
+    match(Until); // Підтверджуємо наявність Until
+    ASTNode* condition = logical_expression(); // Генеруємо логічний вираз для умови
     return createNode(repeat_until_node, "repeat-until", body, condition);
 }
 
@@ -522,6 +559,21 @@ ASTNode* comparison()
                 TypeOfTokens op = TokenTable[pos].type;
                 char operatorName[16];
                 strcpy_s(operatorName, TokenTable[pos].name);
+                match(op); 
+                ASTNode* right = arithmetic_expression(); // if !(token mod 2 | 1 Null;
+                return createNode(cmp_node, operatorName, left, right);
+            }
+            else if(TokenTable[pos].type == Mod1 || TokenTable[pos].type == Mod2)
+            {
+                TypeOfTokens op = TokenTable[pos].type;
+                char operatorName[16];
+                if (TokenTable[pos].type == Mod1) {
+                    strcpy_s(operatorName, "Mod1");
+                }
+                else
+                {
+                    strcpy_s(operatorName, "Mod2");
+                }
                 match(op);
                 ASTNode* right = arithmetic_expression();
                 return createNode(cmp_node, operatorName, left, right);

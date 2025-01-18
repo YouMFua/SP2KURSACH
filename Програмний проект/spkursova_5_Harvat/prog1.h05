@@ -2,16 +2,18 @@
 #Program prog1; 
 Variable Integer_2 aaaaaaaaaaaa,bbbbbbbbbbbb,xxxxxxxxxxxx,yyyyyyyyyyyy;
 Start
-Read aaaaaaaaaaaa;
-Read bbbbbbbbbbbb;
-Write aaaaaaaaaaaa ++ bbbbbbbbbbbb;
-Write aaaaaaaaaaaa -- bbbbbbbbbbbb;
-Write aaaaaaaaaaaa ** bbbbbbbbbbbb;
-Write aaaaaaaaaaaa Div bbbbbbbbbbbb;
-Write aaaaaaaaaaaa Mod bbbbbbbbbbbb;
 
-xxxxxxxxxxxx<==(aaaaaaaaaaaa -- bbbbbbbbbbbb) ** 10 ++ (aaaaaaaaaaaa ++ bbbbbbbbbbbb) Div 10;
-yyyyyyyyyyyy<==xxxxxxxxxxxx ++ (xxxxxxxxxxxx Mod 10);
-Write xxxxxxxxxxxx;
-Write yyyyyyyyyyyy;
+Read aaaaaaaaaaaa
+Read bbbbbbbbbbbb
+Write aaaaaaaaaaaa ++ bbbbbbbbbbbb
+Write aaaaaaaaaaaa -- bbbbbbbbbbbb
+Write aaaaaaaaaaaa ** bbbbbbbbbbbb
+Write aaaaaaaaaaaa Div bbbbbbbbbbbb
+Write aaaaaaaaaaaa Mod bbbbbbbbbbbb
+
+xxxxxxxxxxxx<==(aaaaaaaaaaaa -- bbbbbbbbbbbb) ** 10 ++ (aaaaaaaaaaaa ++ bbbbbbbbbbbb) Div 10
+yyyyyyyyyyyy<==xxxxxxxxxxxx ++ xxxxxxxxxxxx Mod 10
+Write xxxxxxxxxxxx
+Write yyyyyyyyyyyy
+
 Stop

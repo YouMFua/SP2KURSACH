@@ -2,44 +2,36 @@
 #Program prog3;
 Variable Integer_2 aaaaaaaaaaaa,aaaaaaaaaaa2,bbbbbbbbbbbb,xxxxxxxxxxxx,ccccccccccc1,ccccccccccc2;
 Start
-Read aaaaaaaaaaaa;
-Read bbbbbbbbbbbb;
+Read aaaaaaaaaaaa
+Read bbbbbbbbbbbb
 For aaaaaaaaaaa2<==aaaaaaaaaaaa To bbbbbbbbbbbb Do
 	Write aaaaaaaaaaa2 ** aaaaaaaaaaa2;
 
-For aaaaaaaaaaa2<==bbbbbbbbbbbb To aaaaaaaaaaaa Do
+For aaaaaaaaaaa2<==bbbbbbbbbbbb Downto aaaaaaaaaaaa Do
 	Write aaaaaaaaaaa2 ** aaaaaaaaaaa2;
 
-xxxxxxxxxxxx<==0;
-ccccccccccc1<==0;
-While ccccccccccc1 < aaaaaaaaaaaa 
-Start
-	ccccccccccc2<==0;
+xxxxxxxxxxxx<==0
+ccccccccccc1<==0
+While ccccccccccc1 < aaaaaaaaaaaa
+	ccccccccccc2<==0
 	While ccccccccccc2 < bbbbbbbbbbbb
-	Start	
-		xxxxxxxxxxxx<==xxxxxxxxxxxx ++ 1;
-		ccccccccccc2<==ccccccccccc2 ++ 1;
-	Stop
+		xxxxxxxxxxxx<==xxxxxxxxxxxx ++ 1
+		ccccccccccc2<==ccccccccccc2 ++ 1
 	End While
-ccccccccccc1<==ccccccccccc1 ++ 1;
-Stop	
+ccccccccccc1<==ccccccccccc1 ++ 1
 End While
-Write xxxxxxxxxxxx;
+Write xxxxxxxxxxxx
 
-xxxxxxxxxxxx<==0;
-ccccccccccc1<==1;
+xxxxxxxxxxxx<==0
+ccccccccccc1<==1
 Repeat
-Start
-  ccccccccccc2<==1;
+  ccccccccccc2<==1
   Repeat
-  Start
-    xxxxxxxxxxxx<==xxxxxxxxxxxx ++ 1;
-    ccccccccccc2<==ccccccccccc2 ++ 1;
-	Stop
+    xxxxxxxxxxxx<==xxxxxxxxxxxx ++ 1
+    ccccccccccc2<==ccccccccccc2 ++ 1
   Until !(ccccccccccc2 > bbbbbbbbbbbb)
-  ccccccccccc1<==ccccccccccc1 ++ 1;
- Stop
+  ccccccccccc1<==ccccccccccc1 ++ 1
 Until !(ccccccccccc1 > aaaaaaaaaaaa)
-Write xxxxxxxxxxxx;
+Write xxxxxxxxxxxx
 
 Stop

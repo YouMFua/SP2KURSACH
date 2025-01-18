@@ -43,7 +43,9 @@ enum TypeOfTokens
     Sub,			
     Mul,			
     Div,			
-    Mod,            
+    Mod,
+    Mod1,
+    Mod2,
     Equality,		
     NotEquality,	
     Greate,		    
@@ -57,6 +59,7 @@ enum TypeOfTokens
     Colon,		    
     Comma,	
     Minus,
+    
     Unknown
 };
 
@@ -112,6 +115,7 @@ enum TypeOfNodes
     continue_while_node,
 
     repeat_until_node,
+    sequence_node,
 
     id_node,
     num_node,

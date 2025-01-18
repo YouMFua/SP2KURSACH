@@ -1,17 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 
 int main() 
 {
-   int16_t aaaaaaaaaaaa;
-   int16_t bbbbbbbbbbbb;
-   int16_t xxxxxxxxxxxx;
-   int16_t yyyyyyyyyyyy;
+   int aaaaaaaaaaaa;
+   int bbbbbbbbbbbb;
+   int xxxxxxxxxxxx;
+   int yyyyyyyyyyyy;
    printf("Enter aaaaaaaaaaaa:");
-   scanf("%hd", &aaaaaaaaaaaa);
+   scanf("%d", &aaaaaaaaaaaa);
    printf("Enter bbbbbbbbbbbb:");
-   scanf("%hd", &bbbbbbbbbbbb);
+   scanf("%d", &bbbbbbbbbbbb);
    printf("%d\n", (aaaaaaaaaaaa + bbbbbbbbbbbb));
    printf("%d\n", (aaaaaaaaaaaa - bbbbbbbbbbbb));
    printf("%d\n", (aaaaaaaaaaaa * bbbbbbbbbbbb));

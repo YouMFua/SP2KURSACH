@@ -4,7 +4,7 @@
 
 int main() 
 {
-   int16_t aaaaaaaaaaaa, bbbbbbbbbbbb, xxxxxxxxxxxx, yyyyyyyyyyyy;
+   short   aaaaaaaaaaaa, bbbbbbbbbbbb, xxxxxxxxxxxx, yyyyyyyyyyyy;
    printf("Enter aaaaaaaaaaaa:");
    scanf("%hd", &aaaaaaaaaaaa);
    printf("Enter bbbbbbbbbbbb:");
@@ -15,7 +15,7 @@ int main()
    printf("%d\n", aaaaaaaaaaaa / bbbbbbbbbbbb);
    printf("%d\n", aaaaaaaaaaaa % bbbbbbbbbbbb);
    xxxxxxxxxxxx = (aaaaaaaaaaaa - bbbbbbbbbbbb) * 10 + (aaaaaaaaaaaa + bbbbbbbbbbbb) / 10;
-   yyyyyyyyyyyy = xxxxxxxxxxxx + (xxxxxxxxxxxx % 10);
+   yyyyyyyyyyyy = xxxxxxxxxxxx + xxxxxxxxxxxx % 10;
    printf("%d\n", xxxxxxxxxxxx);
    printf("%d\n", yyyyyyyyyyyy);
    system("pause");

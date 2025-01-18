@@ -1,25 +1,6 @@
-﻿  ast.cpp
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\ast.cpp(160,99): warning C4018: '<': signed/unsigned mismatch
-  codegen.cpp
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\codegen.cpp(90,16): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\codegen.cpp(95,13): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\codegen.cpp(117,99): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\codegen.cpp(295,46): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\codegen.cpp(338,50): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\codegen.cpp(378,16): warning C4018: '<': signed/unsigned mismatch
-  codegenfromast.cpp
-  compile.cpp
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\compile.cpp(105,21): warning C4477: 'wprintf' : format string '%s' requires an argument of type 'wchar_t *', but variadic argument 1 has type 'const char *'
-      C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\compile.cpp(105,21):
-      consider using '%hs' in the format string
-      C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\compile.cpp(105,21):
-      consider using '%Ts' in the format string
-      C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\compile.cpp(105,21):
-      this warning is based on non-standard semantics used by Visual C++
-  
-  lexer.cpp
-  main.cpp
-  parser.cpp
-C:\Users\Adriyan\source\repos\spkursova_5_Harvat\spkursova_5_Harvat\parser.cpp(122,99): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  spkursova_5_Harvat.vcxproj -> C:\Users\Adriyan\source\repos\spkursova_5_Harvat\x64\Debug\spkursova_5_Harvat.exe
+﻿  codegen.cpp
+C:\Users\dima2\Desktop\Програмний проект\spkursova_5_Harvat\codegen.cpp(111,99): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dima2\Desktop\Програмний проект\spkursova_5_Harvat\codegen.cpp(390,16): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dima2\Desktop\Програмний проект\spkursova_5_Harvat\codegen.cpp(488,45): warning C4129: '%': unrecognized character escape sequence
+C:\Users\dima2\Desktop\Програмний проект\spkursova_5_Harvat\codegen.cpp(489,45): warning C4129: '%': unrecognized character escape sequence
+  spkursova_5_Harvat.vcxproj -> C:\Users\dima2\Desktop\Програмний проект\x64\Debug\spkursova_5_Harvat.exe

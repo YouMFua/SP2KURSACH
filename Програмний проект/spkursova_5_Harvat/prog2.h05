@@ -1,57 +1,52 @@
 //Prog2//
 #Program prog2; 
-Variable Integer_2 aaaaaaaaaaaa,bbbbbbbbbbbb,cccccccccccc;
+Variable Integer_2 aaaaaaaaaaaa,bbbbbbbbbbbb,cccccccccccc,tttttttttttt;
 Start
-Read aaaaaaaaaaaa;
-Read bbbbbbbbbbbb;
-Read cccccccccccc;
-If(aaaaaaaaaaaa > bbbbbbbbbbbb)
-Start
-	If(aaaaaaaaaaaa > cccccccccccc)
-	Start
-		Goto Abigger;		
-	Stop
-	Else
-	Start
-		Write cccccccccccc;
-		Goto Outofif;
-		Abigger:		
-		Write aaaaaaaaaaaa;
-		Goto Outofif;
-	Stop
-Stop	
-If(bbbbbbbbbbbb < cccccccccccc)
-Start
-	Write cccccccccccc;
-Stop	
+Read aaaaaaaaaaaa
+Read bbbbbbbbbbbb
+Read cccccccccccc
+
+If (aaaaaaaaaaaa > bbbbbbbbbbbb)
+	Goto Outofia
+;
 Else
-Start
-	Write bbbbbbbbbbbb;
-Stop
+	tttttttttttt <== aaaaaaaaaaaa
+;
+
+Outofib:
+If (cccccccccccc > bbbbbbbbbbbb & cccccccccccc > aaaaaaaaaaaa)
+	Goto Outofic	
+;
+Else
+	Goto Outofif
+;
+
+Outofia:   
+    tttttttttttt <== bbbbbbbbbbbb
+    Goto Outofib
+Outofic:
+    tttttttttttt <== cccccccccccc
+    Goto Outofif
+
 Outofif:	
+Write tttttttttttt	
 
 If((aaaaaaaaaaaa == bbbbbbbbbbbb) & (aaaaaaaaaaaa == cccccccccccc) & (bbbbbbbbbbbb == cccccccccccc))
-Start
-	Write 1;
-Stop	
+	Write 1
+;	
 Else
-Start
-	Write 0;
-Stop
+	Write 0
+;
 If((aaaaaaaaaaaa < 0) | (bbbbbbbbbbbb < 0) | (cccccccccccc < 0))
-Start
-	Write -1;
-Stop	
+	Write --1
+;	
 Else
-Start
-	Write 0;
-Stop
+	Write 0
+;
 If(!(aaaaaaaaaaaa < (bbbbbbbbbbbb ++ cccccccccccc)))
-Start
-	Write(10);
-Stop	
+	Write 10
+;	
 Else
-Start
-	Write(0);
-Stop
+	Write 0
+;
 Stop

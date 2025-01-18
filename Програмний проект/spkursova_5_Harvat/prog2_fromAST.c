@@ -1,66 +1,62 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 
 int main() 
 {
-   int16_t aaaaaaaaaaaa;
-   int16_t bbbbbbbbbbbb;
-   int16_t cccccccccccc;
+   int aaaaaaaaaaaa;
+   int bbbbbbbbbbbb;
+   int cccccccccccc;
+   int tttttttttttt;
    printf("Enter aaaaaaaaaaaa:");
-   scanf("%hd", &aaaaaaaaaaaa);
+   scanf("%d", &aaaaaaaaaaaa);
    printf("Enter bbbbbbbbbbbb:");
-   scanf("%hd", &bbbbbbbbbbbb);
+   scanf("%d", &bbbbbbbbbbbb);
    printf("Enter cccccccccccc:");
-   scanf("%hd", &cccccccccccc);
+   scanf("%d", &cccccccccccc);
    if (aaaaaaaaaaaa > bbbbbbbbbbbb) 
-   {
-   if (aaaaaaaaaaaa > cccccccccccc) 
-   {
-   goto Abigger;
-   }
-   else
-   {
-   printf("%d\n", cccccccccccc);
+{ 
+   goto Outofia;
+} 
+   else{
+   tttttttttttt = aaaaaaaaaaaa;
+} 
+Outofib:
+   if ((cccccccccccc > bbbbbbbbbbbb && cccccccccccc > aaaaaaaaaaaa)) 
+{ 
+   goto Outofic;
+} 
+   else{
    goto Outofif;
-Abigger:
-   printf("%d\n", aaaaaaaaaaaa);
+} 
+Outofia:
+   tttttttttttt = bbbbbbbbbbbb;
+   goto Outofib;
+Outofic:
+   tttttttttttt = cccccccccccc;
    goto Outofif;
-   }
-   }
-   if (bbbbbbbbbbbb < cccccccccccc) 
-   {
-   printf("%d\n", cccccccccccc);
-   }
-   else
-   {
-   printf("%d\n", bbbbbbbbbbbb);
-   }
 Outofif:
+   printf("%d\n", tttttttttttt);
    if (((aaaaaaaaaaaa == bbbbbbbbbbbb && aaaaaaaaaaaa == cccccccccccc) && bbbbbbbbbbbb == cccccccccccc)) 
-   {
+{ 
    printf("%d\n", 1);
-   }
-   else
-   {
+} 
+   else{
    printf("%d\n", 0);
-   }
+} 
    if (((aaaaaaaaaaaa < 0 || bbbbbbbbbbbb < 0) || cccccccccccc < 0)) 
-   {
+{ 
    printf("%d\n", (0 - 1));
-   }
-   else
-   {
+} 
+   else{
    printf("%d\n", 0);
-   }
+} 
    if (!(aaaaaaaaaaaa < (bbbbbbbbbbbb + cccccccccccc))) 
-   {
+{ 
    printf("%d\n", 10);
-   }
-   else
-   {
+} 
+   else{
    printf("%d\n", 0);
-   }
+} 
    system("pause");
     return 0;
 }

@@ -4,7 +4,7 @@
 
 int main() 
 {
-   int16_t aaaaaaaaaaaa, bbbbbbbbbbbb, cccccccccccc;
+   short   aaaaaaaaaaaa, bbbbbbbbbbbb, cccccccccccc, tttttttttttt;
    printf("Enter aaaaaaaaaaaa:");
    scanf("%hd", &aaaaaaaaaaaa);
    printf("Enter bbbbbbbbbbbb:");
@@ -12,53 +12,54 @@ int main()
    printf("Enter cccccccccccc:");
    scanf("%hd", &cccccccccccc);
    if ((aaaaaaaaaaaa > bbbbbbbbbbbb))
-   {
-   if ((aaaaaaaaaaaa > cccccccccccc))
-   {
-   goto Abigger;
-   }
+{
+   goto Outofia;
+}
    else
-   {
-   printf("%d\n", cccccccccccc);
-   goto Outofif;
-Abigger:
-   printf("%d\n", aaaaaaaaaaaa);
-   goto Outofif;
-   }
-   }
-   if ((bbbbbbbbbbbb < cccccccccccc))
-   {
-   printf("%d\n", cccccccccccc);
-   }
+{
+   tttttttttttt = aaaaaaaaaaaa;
+}
+Outofib:
+   if ((cccccccccccc > bbbbbbbbbbbb && cccccccccccc > aaaaaaaaaaaa))
+{
+   goto Outofic;
+}
    else
-   {
-   printf("%d\n", bbbbbbbbbbbb);
-   }
+{
+   goto Outofif;
+}
+Outofia:
+   tttttttttttt = bbbbbbbbbbbb;
+   goto Outofib;
+Outofic:
+   tttttttttttt = cccccccccccc;
+   goto Outofif;
 Outofif:
+   printf("%d\n", tttttttttttt);
    if (((aaaaaaaaaaaa == bbbbbbbbbbbb) && (aaaaaaaaaaaa == cccccccccccc) && (bbbbbbbbbbbb == cccccccccccc)))
-   {
+{
    printf("%d\n", 1);
-   }
+}
    else
-   {
+{
    printf("%d\n", 0);
-   }
+}
    if (((aaaaaaaaaaaa < 0) || (bbbbbbbbbbbb < 0) || (cccccccccccc < 0)))
-   {
+{
    printf("%d\n", -1);
-   }
+}
    else
-   {
+{
    printf("%d\n", 0);
-   }
+}
    if ((!(aaaaaaaaaaaa < (bbbbbbbbbbbb + cccccccccccc))))
-   {
-   printf("%d\n", (10));
-   }
+{
+   printf("%d\n", 10);
+}
    else
-   {
-   printf("%d\n", (0));
-   }
+{
+   printf("%d\n", 0);
+}
    system("pause");
     return 0;
 }
